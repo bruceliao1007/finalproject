@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
 
+        BarcodeInfo barcodeInfo = null;
+
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
 
             @Override
@@ -55,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void release() {
-
             }
 
             @Override
@@ -80,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             textView.setText(qrCodes.valueAt(0).displayValue);
+                            if(textView.getText()!="請進行掃碼"){
+                                try {
+                                    barcodeInfo.barcode_text=textView.getText().toString();
+                                    if(barcodeInfo.havedata)Thread.sleep(100);
+                                }catch (InterruptedException e) {
+                                    return;
+                                }
+                            }
+                            textView.setText("請進行掃碼");
                         }
                     });
                 }
@@ -93,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setCancelable(false)
                     .setTitle("需要相機權限")
-                    .setMessage("你是不是傻？沒相機我掃雞雞喔？")
-                    .setPositiveButton("知道了拉", new DialogInterface.OnClickListener() {
+                    .setMessage("同意相機權限以進行掃碼")
+                    .setPositiveButton("同意", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CAMERA},1);
