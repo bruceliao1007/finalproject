@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         textView=(TextView)findViewById(R.id.barcode_text);
 
         barcodeDetector = new BarcodeDetector.Builder(this)
-                .setBarcodeFormats(Barcode.QR_CODE).build();
+                .setBarcodeFormats(Barcode.CODE_39).build();
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
 
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
             public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
                 cameraSource.stop();
             }
-
 
         });
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>(){
