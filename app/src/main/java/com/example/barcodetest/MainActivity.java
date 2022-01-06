@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
 
+        BarcodeInfo barcodeInfo = null;
+
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
 
             @Override
@@ -80,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
                             textView.setText(qrCodes.valueAt(0).displayValue);
                             if(textView.getText()!="請進行掃碼"){
                                 try {
-                                    Thread.sleep(300);
+                                    barcodeInfo.barcode_text=textView.getText().toString();
+                                    if(barcodeInfo.havedata)Thread.sleep(100);
                                 }catch (InterruptedException e) {
                                     return;
                                 }
