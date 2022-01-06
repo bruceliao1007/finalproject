@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         textView=(TextView)findViewById(R.id.barcode_text);
 
         barcodeDetector = new BarcodeDetector.Builder(this)
-                .setBarcodeFormats(Barcode.QR_CODE).build();
+                .setBarcodeFormats(Barcode.CODE_39).build();
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
 
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 cameraSource.stop();
             }
 
-
         });
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>(){
 
@@ -74,12 +73,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void receiveDetections(@NonNull Detector.Detections<Barcode> detections) {
-                final SparseArray<Barcode>qrCodes=detections.getDetectedItems();
-                if(qrCodes.size()!=0){
+                final SparseArray<Barcode>code39=detections.getDetectedItems();
+                if(code39.size()!=0){
                     textView.post(new Runnable() {
                         @Override
                         public void run() {
-                            textView.setText(qrCodes.valueAt(0).displayValue);
+                            textView.setText(code39.valueAt(0).displayValue);
                         }
                     });
                 }
