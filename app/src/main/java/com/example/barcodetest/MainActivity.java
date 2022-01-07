@@ -80,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             textView.setText(qrCodes.valueAt(0).displayValue);
-                            if(textView.getText()!="請進行掃碼"){
+                            if(qrCodes.valueAt(0).displayValue!="請進行掃碼"){
                                 try {
-                                    barcodeInfo.barcode_text=textView.getText().toString();
-                                    if(barcodeInfo.havedata)Thread.sleep(100);
+                                    barcodeInfo.barcode_text=qrCodes.valueAt(0).displayValue;
+                                    if(barcodeInfo.getHavedata())Thread.sleep(100);
                                 }catch (InterruptedException e) {
                                     return;
                                 }

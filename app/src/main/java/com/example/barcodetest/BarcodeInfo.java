@@ -2,7 +2,7 @@ package com.example.barcodetest;
 
 public class BarcodeInfo {
     String barcode_text;
-    boolean havedata;
+    private boolean havedata;
     void BarcodeInfo(){
         barcode_text="";
         havedata=false;
@@ -17,5 +17,8 @@ public class BarcodeInfo {
     }
     void setHavedata(boolean status){
         havedata=status;
+    }
+    boolean getHavedata(){
+        return havedata;
     }
 }
