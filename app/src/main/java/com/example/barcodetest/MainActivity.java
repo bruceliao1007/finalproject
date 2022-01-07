@@ -7,11 +7,14 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -21,11 +24,12 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Login {
     SurfaceView surfaceView;
     TextView textView;
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
+    Button back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),Menu.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         BarcodeInfo barcodeInfo = null;
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
@@ -80,12 +92,13 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             textView.setText(qrCodes.valueAt(0).displayValue);
                             if(textView.getText()!="請進行掃碼"){
-                                try {
+                                /*try {
                                     barcodeInfo.barcode_text=textView.getText().toString();
+
                                     if(barcodeInfo.havedata)Thread.sleep(100);
                                 }catch (InterruptedException e) {
                                     return;
-                                }
+                                }*/
                             }
                             textView.setText("請進行掃碼");
                         }

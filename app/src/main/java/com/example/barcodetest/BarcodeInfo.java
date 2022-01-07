@@ -1,5 +1,7 @@
 package com.example.barcodetest;
 
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
+
 public class BarcodeInfo {
     String barcode_text;
     boolean havedata;
@@ -18,4 +20,5 @@ public class BarcodeInfo {
     void setHavedata(boolean status){
         havedata=status;
     }
+
 }
