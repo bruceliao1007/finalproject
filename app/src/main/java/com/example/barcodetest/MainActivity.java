@@ -21,6 +21,7 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import java.io.IOException;
 
@@ -92,13 +93,22 @@ public class MainActivity extends Login {
                         public void run() {
                             textView.setText(qrCodes.valueAt(0).displayValue);
                             if(textView.getText()!="請進行掃碼"){
-                                /*try {
+                                try {
                                     barcodeInfo.barcode_text=textView.getText().toString();
-
-                                    if(barcodeInfo.havedata)Thread.sleep(100);
+                                    String[] barcode_textPOST=new String[1];
+                                    String[] title = new String[1];
+                                    title[0] = "title";
+                                    if(barcodeInfo.getHavedata())Thread.sleep(100);
+                                    barcode_textPOST[0]=barcodeInfo.getBarcode_text();  //Delay 100 ms
+                                    PutData putData = new PutData("http://172.29.96.1/androidtest/shoppingrecord.php", "GET", title,barcode_textPOST );
+                                    if (putData.startPut()) {
+                                        if (putData.onComplete()) {
+                                            int price = Integer.parseInt(putData.getResult());
+                                        }
+                                    }
                                 }catch (InterruptedException e) {
                                     return;
-                                }*/
+                                }
                             }
                             textView.setText("請進行掃碼");
                         }
