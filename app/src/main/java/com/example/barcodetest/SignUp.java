@@ -65,7 +65,7 @@ public class SignUp extends AppCompatActivity {
                             data[1] = username;
                             data[2] = password;
                             data[3] = email;
-                            PutData putData = new PutData("http://172.29.96.1/androidtest/signup.php", "POST", field, data);
+                            PutData putData = new PutData("http://2792-1-171-55-36.ngrok.io/androidtest/signup.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();

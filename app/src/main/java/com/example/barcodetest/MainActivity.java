@@ -30,11 +30,13 @@ public class MainActivity extends Login {
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
     Button back;
+    public static String[] shoppinglist = new String[3];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getPermissionCamera();
+        back = findViewById(R.id.button5);
         surfaceView=(SurfaceView)findViewById(R.id.surface_view);
         textView=(TextView)findViewById(R.id.barcode_text);
 
@@ -43,15 +45,8 @@ public class MainActivity extends Login {
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),Menu.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        BarcodeInfo barcodeInfo = null;
+
+        //BarcodeInfo barcodeInfo = null;
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
 
@@ -107,6 +102,15 @@ public class MainActivity extends Login {
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),Menu.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
     public void getPermissionCamera(){
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
@@ -125,4 +129,5 @@ public class MainActivity extends Login {
         }
 
     }
+
 }
