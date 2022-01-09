@@ -93,7 +93,6 @@ public class MainActivity extends Login {
                     textView.post(new Runnable() {
                         @Override
                         public void run() {
-
                             textView.setText(qrCodes.valueAt(0).displayValue);
                             if(textView.getText()!="請進行掃碼"){
                                 try {
@@ -106,7 +105,7 @@ public class MainActivity extends Login {
                                 String[] title = new String[1];
                                 title[0] = "title";
                                 barcode_textPOST[0]=barcodeInfo.getBarcode_text();
-                                PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/shoppingrecord.php", "GET", title,barcode_textPOST );
+                                PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/searchproduct.php", "POST", title,barcode_textPOST );
                                 if (putData.startPut()) {
                                     if (putData.onComplete()) {
                                         int price = Integer.parseInt(putData.getResult());
