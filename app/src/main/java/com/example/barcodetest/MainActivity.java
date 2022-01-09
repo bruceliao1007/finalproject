@@ -80,7 +80,7 @@ public class MainActivity extends Login {
             @Override
             public void release() {
             }
-            BarcodeInfo barcodeInfo;
+
             @Override
             public void receiveDetections(@NonNull Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode>qrCodes=detections.getDetectedItems();
@@ -89,11 +89,10 @@ public class MainActivity extends Login {
                         @Override
                         public void run() {
                             textView.setText(qrCodes.valueAt(0).displayValue);
-                            barcodeInfo.setBarcode_text(qrCodes.valueAt(0).displayValue);
                             String[] barcode_textPOST=new String[1];
                             String[] title = new String[1];
                             title[0] = "title";
-                            barcode_textPOST[0]=barcodeInfo.getBarcode_text();
+                            barcode_textPOST[0]=qrCodes.valueAt(0).displayValue;
                             PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/searchproduct.php", "POST", title,barcode_textPOST );
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
