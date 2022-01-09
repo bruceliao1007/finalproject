@@ -29,6 +29,7 @@
     <string name="checkout">checkout</string>
     <string name="back">back</string>
     <string name="shopping_cart">Shopping cart</string>
+    <string name="scan_qr_code">Scan QR Code</string>
 
 
 </resources>

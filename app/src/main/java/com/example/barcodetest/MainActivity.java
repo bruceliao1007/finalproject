@@ -89,13 +89,8 @@ public class MainActivity extends Login {
                         @Override
                         public void run() {
                             textView.setText(qrCodes.valueAt(0).displayValue);
-                            if(qrCodes.valueAt(0).displayValue!="請進行掃碼"){
-                                try {
-                                    barcodeInfo.setBarcode_text(qrCodes.valueAt(0).displayValue);
-                                    Thread.sleep(100);//Delay 100 ms
-                                }catch (InterruptedException e) {
-                                    return;
-                                }
+                            if(qrCodes.valueAt(0).displayValue!="Scan QR Code"){
+                                barcodeInfo.setBarcode_text(qrCodes.valueAt(0).displayValue);
                                 String[] barcode_textPOST=new String[1];
                                 String[] title = new String[1];
                                 title[0] = "title";
@@ -106,8 +101,8 @@ public class MainActivity extends Login {
                                         int price = Integer.parseInt(putData.getResult());
                                         Toast.makeText(getApplicationContext(),"商品："+barcode_textPOST[0]+" 價格："+price+" 加入購物車", Toast.LENGTH_SHORT).show();
                                     }
-
                                 }
+                                textView.setText("Scan QR Code");
                             }
                         }
                     });
