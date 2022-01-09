@@ -89,10 +89,12 @@ public class MainActivity extends Login {
                         @Override
                         public void run() {
                             textView.setText(qrCodes.valueAt(0).displayValue);
-                            String[] barcode_textPOST=new String[1];
+
                             String[] title = new String[1];
                             title[0] = "title";
+                            String[] barcode_textPOST=new String[1];
                             barcode_textPOST[0]=qrCodes.valueAt(0).displayValue;
+
                             PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/searchproduct.php", "POST", title,barcode_textPOST );
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {

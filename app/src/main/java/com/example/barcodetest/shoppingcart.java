@@ -3,6 +3,7 @@ package com.example.barcodetest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,10 +24,12 @@ import java.util.List;
 public class shoppingcart extends MainActivity{
     ListView lshow;
     List<String> data;
+    Button back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppingcart);
+        back.findViewById(R.id.button7);
         data = new ArrayList<>();
         lshow = findViewById(R.id.list);
         data.add("good");
@@ -40,6 +43,7 @@ public class shoppingcart extends MainActivity{
         });
 
     }
+
 
     public static class MyAdapter extends BaseAdapter implements View.OnClickListener{
         private Context context;
@@ -85,6 +89,7 @@ public class shoppingcart extends MainActivity{
             return view;
         }
 
+
         @Override
         public void onClick(View view) {
             switch(view.getId()){
@@ -98,7 +103,7 @@ public class shoppingcart extends MainActivity{
             TextView mTv;
             Button mbtn;
         }
-    }
 
+    }
 
 }
