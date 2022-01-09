@@ -65,7 +65,7 @@ public class SignUp extends AppCompatActivity {
                             data[1] = username;
                             data[2] = password;
                             data[3] = email;
-                            PutData putData = new PutData("http://172.29.96.1/androidtest/signup.php", "POST", field, data);
+                            PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/signup.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
@@ -87,6 +87,14 @@ public class SignUp extends AppCompatActivity {
                 else{
                     Toast.makeText(getApplicationContext(), "All fields need to be required", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        textviewLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),Login.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

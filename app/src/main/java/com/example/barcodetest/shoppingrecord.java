@@ -16,18 +16,19 @@ import android.widget.Toast;
 import com.vishnusivadas.advanced_httpurlconnection.FetchData;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class shoppingrecord extends Login {
-    TextView textview;
+    ListView lvshow;
     Button back;
     ProgressBar progressBar;
-    //String str[] = new String[1];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppingrecord);
-        textview = findViewById(R.id.textView2);
+        lvshow = findViewById(R.id.listview);
         back = findViewById(R.id.button4);
         progressBar = findViewById(R.id.progress);
         String[] field = new String[1];
@@ -45,16 +46,20 @@ public class shoppingrecord extends Login {
                 //Creating array for parameters
                 String[] field = new String[1];
                 field[0] = "username";
-
                 //Creating array for data
                 String[] data = new String[1];
-                data[0] = "3";
-                PutData putData = new PutData("http://172.29.96.1/androidtest/shoppingrecord.php", "GET", field, data);
+                data[0] = token;
+                PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/shoppingrecord.php", "GET", field, data);
                 if (putData.startPut()) {
                     if (putData.onComplete()) {
                         String result = putData.getResult();
                         //End ProgressBar (Set visibility to GONE)
-                        textview.setText(result);
+                        String[] str = result.split("!");
+                        ArrayAdapter adapter=
+                                new ArrayAdapter(shoppingrecord.this,android.R.layout.simple_list_item_1,str);
+                        lvshow.setAdapter(adapter);
+
+
                     }
                 }
                 //End Write and Read data with URL

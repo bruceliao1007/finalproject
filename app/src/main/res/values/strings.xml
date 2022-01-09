@@ -18,7 +18,17 @@
     <string name="product1">product1</string>
     <string name="number">number</string>
     <string name="sum">sum</string>
-    <string name="back">back</string>
+
     <string name="barcode_text">Barcode Text</string>
-    <string name="shopping_cart">shopping cart</string>
+
+    <string name="button">Button</string>
+
+    <string name="textview">TextView</string>
+
+    <string name="total">total:</string>
+    <string name="checkout">checkout</string>
+    <string name="back">back</string>
+    <string name="shopping_cart">Shopping cart</string>
+
+
 </resources>
