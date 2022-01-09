@@ -93,7 +93,7 @@ public class MainActivity extends Login {
             @Override
             public void release() {
             }
-
+            BarcodeInfo barcodeInfo = null;
             @Override
             public void receiveDetections(@NonNull Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode>qrCodes=detections.getDetectedItems();
