@@ -92,7 +92,7 @@ public class MainActivity extends Login {
                             if(qrCodes.valueAt(0).displayValue!="請進行掃碼"){
                                 try {
                                     barcodeInfo.setBarcode_text(qrCodes.valueAt(0).displayValue);
-                                    if(barcodeInfo.getHavedata())Thread.sleep(100);//Delay 100 ms
+                                    Thread.sleep(100);//Delay 100 ms
                                 }catch (InterruptedException e) {
                                     return;
                                 }
