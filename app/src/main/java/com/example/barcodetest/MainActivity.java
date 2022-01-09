@@ -52,11 +52,6 @@ public class MainActivity extends Login {
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
 
-
-
-        BarcodeInfo barcodeInfo = null;
-
-
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
 
             @Override
