@@ -89,9 +89,9 @@ public class MainActivity extends Login {
                         @Override
                         public void run() {
                             textView.setText(qrCodes.valueAt(0).displayValue);
-                            if(textView.getText()!="請進行掃碼"){
+                            if(qrCodes.valueAt(0).displayValue!="請進行掃碼"){
                                 try {
-                                    barcodeInfo.barcode_text=textView.getText().toString();
+                                    barcodeInfo.setBarcode_text(qrCodes.valueAt(0).displayValue);
                                     if(barcodeInfo.getHavedata())Thread.sleep(100);//Delay 100 ms
                                 }catch (InterruptedException e) {
                                     return;
