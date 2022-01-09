@@ -33,6 +33,7 @@ public class MainActivity extends Login {
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
     Button back;
+    Button shoppingcart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +41,19 @@ public class MainActivity extends Login {
         getPermissionCamera();
         surfaceView=(SurfaceView)findViewById(R.id.surface_view);
         textView=(TextView)findViewById(R.id.barcode_text);
-
+        shoppingcart=findViewById(R.id.button6);
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.CODE_39).build();
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
-
+        shoppingcart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),shoppingrecord.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +144,6 @@ public class MainActivity extends Login {
                     })
                     .show();
         }
-
     }
+
 }
