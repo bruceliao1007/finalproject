@@ -3,6 +3,7 @@ package com.example.barcodetest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,19 +24,30 @@ import java.util.List;
 public class shoppingcart extends MainActivity{
     ListView lshow;
     List<String> data;
+    Button back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppingcart);
+        back = findViewById(R.id.button7);
         data = new ArrayList<>();
         lshow = findViewById(R.id.list);
         data.add("good");
+        data.add("Allen");
         MyAdapter adapter = new MyAdapter(data);
         lshow.setAdapter(adapter);
         lshow.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long j){
                 Toast.makeText(com.example.barcodetest.shoppingcart.this,"123",Toast.LENGTH_SHORT).show();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -76,11 +88,18 @@ public class shoppingcart extends MainActivity{
                 viewHolder = new ViewHolder();
                 viewHolder.mTv = (TextView) view.findViewById(R.id.mTv);
                 viewHolder.mbtn = (Button)view.findViewById(R.id.mbtn);
+                viewHolder.mbtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        data.remove(i);
+                        notifyDataSetChanged();
+                    }
+                });
                 view.setTag(viewHolder);
             }
             viewHolder = (ViewHolder) view.getTag();
             viewHolder.mTv.setText(data.get(i));
-            viewHolder.mbtn.setText("123");
+            viewHolder.mbtn.setText("delete");
             viewHolder.mbtn.setOnClickListener(this);
             return view;
         }
@@ -89,6 +108,7 @@ public class shoppingcart extends MainActivity{
         public void onClick(View view) {
             switch(view.getId()){
                 case R.id.mbtn:
+                    data.remove()
                     Toast.makeText(context,"123",Toast.LENGTH_SHORT).show();
                     break;
             }
