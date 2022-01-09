@@ -11,11 +11,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -95,19 +97,20 @@ public class MainActivity extends Login {
                             if(textView.getText()!="請進行掃碼"){
                                 try {
                                     barcodeInfo.barcode_text=textView.getText().toString();
-                                    String[] barcode_textPOST=new String[1];
-                                    String[] title = new String[1];
-                                    title[0] = "title";
-                                    if(barcodeInfo.getHavedata())Thread.sleep(100);
-                                    barcode_textPOST[0]=barcodeInfo.getBarcode_text();  //Delay 100 ms
-                                    PutData putData = new PutData("http://172.29.96.1/androidtest/shoppingrecord.php", "GET", title,barcode_textPOST );
-                                    if (putData.startPut()) {
-                                        if (putData.onComplete()) {
-                                            int price = Integer.parseInt(putData.getResult());
-                                        }
-                                    }
+                                    if(barcodeInfo.getHavedata())Thread.sleep(100);//Delay 100 ms
                                 }catch (InterruptedException e) {
                                     return;
+                                }
+                                String[] barcode_textPOST=new String[1];
+                                String[] title = new String[1];
+                                title[0] = "title";
+                                barcode_textPOST[0]=barcodeInfo.getBarcode_text();
+                                PutData putData = new PutData("http://2792-1-171-55-36.ngrok.io/androidtest/shoppingrecord.php", "GET", title,barcode_textPOST );
+                                if (putData.startPut()) {
+                                    if (putData.onComplete()) {
+                                        int price = Integer.parseInt(putData.getResult());
+                                        Toast.makeText(getApplicationContext(),"商品："+barcode_textPOST[0]+" 價格："+price+" 加入購物車", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                             textView.setText("請進行掃碼");
