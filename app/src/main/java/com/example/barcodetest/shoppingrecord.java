@@ -48,8 +48,8 @@ public class shoppingrecord extends Login {
                 field[0] = "username";
                 //Creating array for data
                 String[] data = new String[1];
-                data[0] = "3";
-                PutData putData = new PutData("http://2792-1-171-55-36.ngrok.io/androidtest/shoppingrecord.php", "GET", field, data);
+                data[0] = token;
+                PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/shoppingrecord.php", "GET", field, data);
                 if (putData.startPut()) {
                     if (putData.onComplete()) {
                         String result = putData.getResult();
@@ -59,16 +59,7 @@ public class shoppingrecord extends Login {
                                 new ArrayAdapter(shoppingrecord.this,android.R.layout.simple_list_item_1,str);
                         lvshow.setAdapter(adapter);
 
-                        /*
-                        for(int i = 0; i <= str.length - 1; i++){
-                            textview.setText(str[i]);
-                            textview.setText("\n");
-                        }*/
 
-
-
-                        //textview.setText(result);
-                        //String[] s = new
                     }
                 }
                 //End Write and Read data with URL

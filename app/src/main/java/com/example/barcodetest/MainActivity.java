@@ -16,11 +16,13 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import java.io.IOException;
 
@@ -29,8 +31,9 @@ public class MainActivity extends Login {
     TextView textView;
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
-    Button back;
+    Button back, shoppingcart;
     public static String[] shoppinglist = new String[3];
+    public static int[] price = new int[3];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +42,9 @@ public class MainActivity extends Login {
         back = findViewById(R.id.button5);
         surfaceView=(SurfaceView)findViewById(R.id.surface_view);
         textView=(TextView)findViewById(R.id.barcode_text);
-
+        shoppingcart = findViewById(R.id.shoppingcart);
         barcodeDetector = new BarcodeDetector.Builder(this)
-                .setBarcodeFormats(Barcode.CODE_39).build();
+                .setBarcodeFormats(Barcode.QR_CODE).build();
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
 
@@ -73,7 +76,6 @@ public class MainActivity extends Login {
 
         });
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>(){
-
             @Override
             public void release() {
             }
@@ -85,17 +87,40 @@ public class MainActivity extends Login {
                     textView.post(new Runnable() {
                         @Override
                         public void run() {
-                            textView.setText(qrCodes.valueAt(0).displayValue);
-                            if(textView.getText()!="請進行掃碼"){
-                                /*try {
-                                    barcodeInfo.barcode_text=textView.getText().toString();
+                            String[] column = new String[1];
+                            column[0] = "title";
+                            String[] title = new String[1];
+                            title[0] = qrCodes.valueAt(0).displayValue;
+                            PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/searchproduct.php", "POST", column, title);
+                            if (putData.startPut()) {
+                                if (putData.onComplete()) {
+                                    String result = putData.getResult();
+                                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+                                    alertDialog.setTitle("Introduction of product");
+                                    alertDialog.setMessage(title[0]+"\t\t\t\t"+result+"dollars");
+                                    alertDialog.setPositiveButton("add to shopping cart",((dialog, which) -> {}));
+                                    alertDialog.setNeutralButton("back",((dialog, which) -> {}));
+                                    AlertDialog dialog = alertDialog.create();
+                                    dialog.show();
+                                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener((v -> {
+                                        for(int i = 0;i <= 2; i++){
+                                            if(shoppinglist[i] == null){
+                                                shoppinglist[i] = title[0];
+                                                price[i] = Integer.parseInt(result);
+                                            }else if(!(shoppinglist[2] == null)){
+                                                Toast.makeText(getApplicationContext(),"The shopping cart is full",Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
 
-                                    if(barcodeInfo.havedata)Thread.sleep(100);
-                                }catch (InterruptedException e) {
-                                    return;
-                                }*/
+                                    }));
+                                    dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener((v -> {
+                                        dialog.dismiss();
+                                    }));
+
+                                    dialog.setCancelable(false);
+                                    dialog.setCanceledOnTouchOutside(false);
+                                }
                             }
-                            textView.setText("請進行掃碼");
                         }
                     });
                 }
@@ -106,6 +131,14 @@ public class MainActivity extends Login {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),Menu.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        shoppingcart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),shoppingcart.class);
                 startActivity(intent);
                 finish();
             }
