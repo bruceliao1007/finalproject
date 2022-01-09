@@ -80,7 +80,7 @@ public class MainActivity extends Login {
             @Override
             public void release() {
             }
-            BarcodeInfo barcodeInfo = null;
+            BarcodeInfo barcodeInfo;
             @Override
             public void receiveDetections(@NonNull Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode>qrCodes=detections.getDetectedItems();

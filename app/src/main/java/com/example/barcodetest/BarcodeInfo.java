@@ -5,8 +5,8 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 public class BarcodeInfo {
     String barcode_text;
     private boolean havedata;
-    void BarcodeInfo(){
-        barcode_text="";
+    void BarcodeInfo(String text){
+        barcode_text=text;
         havedata=false;
     }
     void setBarcode_text(String code){
