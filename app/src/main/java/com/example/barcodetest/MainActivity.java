@@ -33,8 +33,6 @@ public class MainActivity extends Login {
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
     Button back, shoppingcart;
-    public static String[] shoppinglist = new String[3];
-    public static int[] price = new int[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,6 @@ public class MainActivity extends Login {
         getPermissionCamera();
         back = findViewById(R.id.button5);
         surfaceView=(SurfaceView)findViewById(R.id.surface_view);
-        textView=(TextView)findViewById(R.id.barcode_text);
 
         shoppingcart = findViewById(R.id.shoppingcart);
 
@@ -88,7 +85,6 @@ public class MainActivity extends Login {
                     textView.post(new Runnable() {
                         @Override
                         public void run() {
-                            textView.setText(qrCodes.valueAt(0).displayValue);
 
                             String[] title = new String[1];
                             title[0] = "title";
@@ -102,7 +98,6 @@ public class MainActivity extends Login {
                                     Toast.makeText(getApplicationContext(),"商品："+barcode_textPOST[0]+" 價格："+price+" 加入購物車", Toast.LENGTH_SHORT).show();
                                 }
                             }
-                            textView.setText("Scan QR Code");
                             try {
                                 Thread.sleep(100);
                             } catch (InterruptedException e) {
