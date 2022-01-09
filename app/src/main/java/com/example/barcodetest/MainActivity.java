@@ -89,20 +89,23 @@ public class MainActivity extends Login {
                         @Override
                         public void run() {
                             textView.setText(qrCodes.valueAt(0).displayValue);
-                            if(qrCodes.valueAt(0).displayValue!="Scan QR Code"){
-                                barcodeInfo.setBarcode_text(qrCodes.valueAt(0).displayValue);
-                                String[] barcode_textPOST=new String[1];
-                                String[] title = new String[1];
-                                title[0] = "title";
-                                barcode_textPOST[0]=barcodeInfo.getBarcode_text();
-                                PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/searchproduct.php", "POST", title,barcode_textPOST );
-                                if (putData.startPut()) {
-                                    if (putData.onComplete()) {
-                                        int price = Integer.parseInt(putData.getResult());
-                                        Toast.makeText(getApplicationContext(),"商品："+barcode_textPOST[0]+" 價格："+price+" 加入購物車", Toast.LENGTH_SHORT).show();
-                                    }
+                            barcodeInfo.setBarcode_text(qrCodes.valueAt(0).displayValue);
+                            String[] barcode_textPOST=new String[1];
+                            String[] title = new String[1];
+                            title[0] = "title";
+                            barcode_textPOST[0]=barcodeInfo.getBarcode_text();
+                            PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/searchproduct.php", "POST", title,barcode_textPOST );
+                            if (putData.startPut()) {
+                                if (putData.onComplete()) {
+                                    int price = Integer.parseInt(putData.getResult());
+                                    Toast.makeText(getApplicationContext(),"商品："+barcode_textPOST[0]+" 價格："+price+" 加入購物車", Toast.LENGTH_SHORT).show();
                                 }
-                                textView.setText("Scan QR Code");
+                            }
+                            textView.setText("Scan QR Code");
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                         }
                     });
