@@ -28,5 +28,6 @@
     <string name="checkout">checkout</string>
     <string name="back">back</string>
     <string name="shopping_cart">Shopping cart</string>
+    <string name="logout">Logout</string>
 
 </resources>

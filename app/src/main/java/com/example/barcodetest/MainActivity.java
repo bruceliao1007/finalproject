@@ -25,6 +25,9 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends Login {
     SurfaceView surfaceView;
@@ -32,8 +35,9 @@ public class MainActivity extends Login {
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
     Button back, shoppingcart;
-    public static String[] shoppinglist = new String[3];
-    public static int[] price = new int[3];
+    public static List<String> shoppinglist = new ArrayList<String>();
+    public static List<String> price = new ArrayList<String>();
+    public static List<String> cart = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +95,7 @@ public class MainActivity extends Login {
                             column[0] = "title";
                             String[] title = new String[1];
                             title[0] = qrCodes.valueAt(0).displayValue;
-                            PutData putData = new PutData("http://dc33-1-171-45-153.ngrok.io/androidtest/searchproduct.php", "POST", column, title);
+                            PutData putData = new PutData("http://706d-2001-b400-e203-5338-a9b9-fae2-109f-3488.ngrok.io/androidtest/searchproduct.php", "POST", column, title);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
@@ -103,13 +107,12 @@ public class MainActivity extends Login {
                                     AlertDialog dialog = alertDialog.create();
                                     dialog.show();
                                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener((v -> {
-                                        for(int i = 0;i <= 2; i++){
-                                            if(shoppinglist[i] == null){
-                                                shoppinglist[i] = title[0];
-                                                price[i] = Integer.parseInt(result);
-                                            }else if(!(shoppinglist[2] == null)){
-                                                Toast.makeText(getApplicationContext(),"The shopping cart is full",Toast.LENGTH_SHORT).show();
-                                            }
+                                        if(shoppinglist.size() == 3){
+                                            Toast.makeText(getApplicationContext(),"The shopping cart is full.",Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            shoppinglist.add(title[0]);
+                                            price.add(result);
+                                            cart.add(title[0]+"\t\t\t\t"+result);
                                         }
 
                                     }));
