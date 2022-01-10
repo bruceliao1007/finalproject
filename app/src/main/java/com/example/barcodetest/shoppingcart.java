@@ -34,14 +34,18 @@ import java.util.ListIterator;
 public class shoppingcart extends MainActivity{
     ListView lshow;
     List<String> data;
+
     TextView sum;
     Button back, checkout;
     public List<String> newlist = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoppingcart);
+
         back = findViewById(R.id.button7);
+
         data = new ArrayList<>();
         lshow = findViewById(R.id.list);
         sum = findViewById(R.id.textView11);
@@ -135,7 +139,9 @@ public class shoppingcart extends MainActivity{
 
     }
 
+
     public class MyAdapter extends BaseAdapter implements View.OnClickListener{
+
         private Context context;
         private List<String> data;
 
@@ -198,6 +204,7 @@ public class shoppingcart extends MainActivity{
             return view;
         }
 
+
         @Override
         public void onClick(View view) {
             switch(view.getId()){
@@ -211,7 +218,7 @@ public class shoppingcart extends MainActivity{
             TextView mTv;
             Button mbtn;
         }
-    }
 
+    }
 
 }

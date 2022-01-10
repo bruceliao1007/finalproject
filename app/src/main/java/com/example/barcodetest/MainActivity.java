@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -35,9 +36,11 @@ public class MainActivity extends Login {
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
     Button back, shoppingcart;
+
     public static List<String> shoppinglist = new ArrayList<String>();
     public static List<String> price = new ArrayList<String>();
     public static List<String> cart = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,15 +48,13 @@ public class MainActivity extends Login {
         getPermissionCamera();
         back = findViewById(R.id.button5);
         surfaceView=(SurfaceView)findViewById(R.id.surface_view);
-        textView=(TextView)findViewById(R.id.barcode_text);
+
         shoppingcart = findViewById(R.id.shoppingcart);
+
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE).build();
         cameraSource=new CameraSource.Builder(this,barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
-
-
-        //BarcodeInfo barcodeInfo = null;
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
 
@@ -91,8 +92,6 @@ public class MainActivity extends Login {
                     textView.post(new Runnable() {
                         @Override
                         public void run() {
-                            String[] column = new String[1];
-                            column[0] = "title";
                             String[] title = new String[1];
                             title[0] = qrCodes.valueAt(0).displayValue;
                             PutData putData = new PutData("http://706d-2001-b400-e203-5338-a9b9-fae2-109f-3488.ngrok.io/androidtest/searchproduct.php", "POST", column, title);
@@ -122,7 +121,13 @@ public class MainActivity extends Login {
 
                                     dialog.setCancelable(false);
                                     dialog.setCanceledOnTouchOutside(false);
+
                                 }
+                            }
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                         }
                     });
@@ -163,7 +168,6 @@ public class MainActivity extends Login {
                     })
                     .show();
         }
-
     }
 
 }
