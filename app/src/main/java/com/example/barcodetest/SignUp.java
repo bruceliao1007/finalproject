@@ -65,7 +65,7 @@ public class SignUp extends AppCompatActivity {
                             data[1] = username;
                             data[2] = password;
                             data[3] = email;
-                            PutData putData = new PutData("http://706d-2001-b400-e203-5338-a9b9-fae2-109f-3488.ngrok.io/androidtest/signup.php", "POST", field, data);
+                            PutData putData = new PutData("http://2e5a-2001-b400-e203-5338-990d-a2e7-d84-4935.ngrok.io/androidtest/signup.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
@@ -76,7 +76,13 @@ public class SignUp extends AppCompatActivity {
                                         finish();
                                     }
                                     else {
-                                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"The account or email is applied by other.",Toast.LENGTH_SHORT).show();
+                                        Intent intent = getIntent();
+                                        overridePendingTransition(0, 0);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        finish();
+                                        overridePendingTransition(0, 0);
+                                        startActivity(intent);
                                     }
                                 }
                             }

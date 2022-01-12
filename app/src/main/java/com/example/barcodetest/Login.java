@@ -22,6 +22,8 @@ public class Login extends AppCompatActivity {
     TextView textviewSignUp;
     ProgressBar progressBar;
     public static String token;
+    public String temp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class Login extends AppCompatActivity {
         buttonLogin = findViewById(R.id.buttonLogin);
         textviewSignUp = findViewById(R.id.signUpText);
         progressBar = findViewById(R.id.progress);
+
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,20 +53,18 @@ public class Login extends AppCompatActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            //Starting Write and Read data with URL
-                            //Creating array for parameters
                             String[] field = new String[2];
                             field[0] = "username";
                             field[1] = "password";
-                            //Creating array for data
                             String[] data = new String[2];
                             data[0] = username;
                             data[1] = password;
-                            PutData putData = new PutData("http://706d-2001-b400-e203-5338-a9b9-fae2-109f-3488.ngrok.io/androidtest/login.php", "POST", field, data);
+                            PutData putData = new PutData("http://2e5a-2001-b400-e203-5338-990d-a2e7-d84-4935.ngrok.io/androidtest/login.php", "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
                                     if(result.equals("Login Success")){
+                                        temp = null;
                                         token = data[0];
                                         Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(),Menu.class);
@@ -71,11 +72,17 @@ public class Login extends AppCompatActivity {
                                         finish();
                                     }
                                     else {
-                                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"wrong password,enter again.",Toast.LENGTH_SHORT).show();
+                                        Intent intent = getIntent();
+                                        overridePendingTransition(0, 0);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        finish();
+                                        overridePendingTransition(0, 0);
+                                        startActivity(intent);
+
                                     }
                                 }
                             }
-                            //End Write and Read data with URL
                         }
                     });
                 }

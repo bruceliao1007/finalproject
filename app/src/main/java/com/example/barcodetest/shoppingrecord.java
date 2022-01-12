@@ -49,7 +49,7 @@ public class shoppingrecord extends Login {
                 //Creating array for data
                 String[] data = new String[1];
                 data[0] = token;
-                PutData putData = new PutData("http://706d-2001-b400-e203-5338-a9b9-fae2-109f-3488.ngrok.io/androidtest/shoppingrecord.php", "GET", field, data);
+                PutData putData = new PutData("http://2e5a-2001-b400-e203-5338-990d-a2e7-d84-4935.ngrok.io/androidtest/shoppingrecord.php", "GET", field, data);
                 if (putData.startPut()) {
                     if (putData.onComplete()) {
                         String result = putData.getResult();

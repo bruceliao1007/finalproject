@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
@@ -47,25 +48,25 @@ public class MainActivity extends Login {
         setContentView(R.layout.activity_main);
         getPermissionCamera();
         back = findViewById(R.id.button5);
-        surfaceView=(SurfaceView)findViewById(R.id.surface_view);
-
+        surfaceView = (SurfaceView) findViewById(R.id.surface_view);
+        textView = findViewById(R.id.textView2);
         shoppingcart = findViewById(R.id.shoppingcart);
 
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE).build();
-        cameraSource=new CameraSource.Builder(this,barcodeDetector)
+        cameraSource = new CameraSource.Builder(this, barcodeDetector)
                 .setRequestedPreviewSize(300,300).build();
 
-        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback(){
+        surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
 
             @Override
             public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-                if(ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.CAMERA)
-                        !=PackageManager.PERMISSION_GRANTED)
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED)
                     return;
-                try{
+                try {
                     cameraSource.start(surfaceHolder);
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -80,15 +81,15 @@ public class MainActivity extends Login {
             }
 
         });
-        barcodeDetector.setProcessor(new Detector.Processor<Barcode>(){
+        barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
             }
 
             @Override
             public void receiveDetections(@NonNull Detector.Detections<Barcode> detections) {
-                final SparseArray<Barcode>qrCodes=detections.getDetectedItems();
-                if(qrCodes.size()!=0){
+                final SparseArray<Barcode> qrCodes = detections.getDetectedItems();
+                if (qrCodes.size() != 0) {
                     textView.post(new Runnable() {
                         @Override
                         public void run() {
@@ -96,40 +97,53 @@ public class MainActivity extends Login {
                             column[0] = "title";
                             String[] title = new String[1];
                             title[0] = qrCodes.valueAt(0).displayValue;
-                            PutData putData = new PutData("http://706d-2001-b400-e203-5338-a9b9-fae2-109f-3488.ngrok.io/androidtest/searchproduct.php", "POST", column, title);
+                            cameraSource.stop();
+                            PutData putData = new PutData("http://2e5a-2001-b400-e203-5338-990d-a2e7-d84-4935.ngrok.io/androidtest/searchproduct.php", "POST", column, title);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();
                                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
                                     alertDialog.setTitle("Introduction of product");
-                                    alertDialog.setMessage(title[0]+"\t\t\t\t"+result+"dollars");
-                                    alertDialog.setPositiveButton("add to shopping cart",((dialog, which) -> {}));
-                                    alertDialog.setNeutralButton("back",((dialog, which) -> {}));
+                                    alertDialog.setMessage(title[0] + "\t\t\t\t" + result + "$");
+                                    alertDialog.setPositiveButton("add to shopping cart", ((dialog, which) -> {
+                                    }));
+                                    alertDialog.setNegativeButton("back", ((dialog, which) -> {
+                                    }));
                                     AlertDialog dialog = alertDialog.create();
                                     dialog.show();
                                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener((v -> {
-                                        if(shoppinglist.size() == 3){
-                                            Toast.makeText(getApplicationContext(),"The shopping cart is full.",Toast.LENGTH_SHORT).show();
-                                        }else {
+                                        if (shoppinglist.size() == 3) {
+                                            Toast.makeText(getApplicationContext(), "The shopping cart is full.", Toast.LENGTH_SHORT).show();
+                                        } else {
                                             shoppinglist.add(title[0]);
                                             price.add(result);
-                                            cart.add(title[0]+"\t\t\t\t"+result);
+                                            cart.add(title[0] + "\t\t\t\t" + result);
+                                            if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                                                return;
+                                            }
+                                            try {
+                                                cameraSource.start(surfaceView.getHolder());
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                            dialog.dismiss();
                                         }
-
                                     }));
-                                    dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener((v -> {
+                                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener((v -> {
+                                        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                                            return;
+                                        }
+                                        try {
+                                            cameraSource.start(surfaceView.getHolder());
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
                                         dialog.dismiss();
                                     }));
-
                                     dialog.setCancelable(false);
                                     dialog.setCanceledOnTouchOutside(false);
 
                                 }
-                            }
-                            try {
-                                Thread.sleep(100);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
                             }
                         }
                     });
