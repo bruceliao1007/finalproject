@@ -3,11 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/USER/OneDrive/NAS/NTUT/APP CLASS/finalproject/app/src/main/res/layout/activity_login.xml" value="0.161231884057971" />
         <entry key="..\:/Users/USER/OneDrive/NAS/NTUT/APP CLASS/finalproject/app/src/main/res/layout/activity_main.xml" value="0.2046875" />
         <entry key="..\:/Users/USER/OneDrive/NAS/NTUT/APP CLASS/finalproject/app/src/main/res/layout/activity_shoppingcart.xml" value="0.21965579710144928" />
         <entry key="..\:/Users/USER/OneDrive/NAS/NTUT/APP CLASS/finalproject/app/src/main/res/layout/activity_shoppingrecord.xml" value="0.36614583333333334" />
+<<<<<<< HEAD
         <entry key="..\:/Users/a0975/AndroidStudioProjects/barcodetest/app/src/main/res/layout/activity_login.xml" value="0.335" />
         <entry key="..\:/Users/a0975/AndroidStudioProjects/barcodetest/app/src/main/res/layout/activity_main.xml" value="0.25" />
+=======
+        <entry key="..\:/Users/USER/OneDrive/NAS/NTUT/APP CLASS/finalproject/app/src/main/res/layout/activity_sign_up.xml" value="0.20625" />
+        <entry key="..\:/Users/USER/OneDrive/NAS/NTUT/APP CLASS/finalproject/app/src/main/res/layout/list_item.xml" value="0.20625" />
+        <entry key="..\:/Users/a0975/AndroidStudioProjects/barcodetest/app/src/main/res/layout/activity_login.xml" value="0.15425531914893617" />
+        <entry key="..\:/Users/a0975/AndroidStudioProjects/barcodetest/app/src/main/res/layout/activity_main.xml" value="0.1" />
+>>>>>>> Bruce
         <entry key="..\:/Users/a0975/AndroidStudioProjects/barcodetest/app/src/main/res/layout/activity_menu.xml" value="0.335" />
         <entry key="..\:/Users/a0975/AndroidStudioProjects/barcodetest/app/src/main/res/layout/activity_shoppingrecord.xml" value="0.375" />
         <entry key="..\:/Users/a0975/AndroidStudioProjects/barcodetest/app/src/main/res/layout/activity_shoppingrecord2.xml" value="0.19882246376811594" />

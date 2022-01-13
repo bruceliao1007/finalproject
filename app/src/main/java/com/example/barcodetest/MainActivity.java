@@ -93,12 +93,14 @@ public class MainActivity extends Login {
                     textView.post(new Runnable() {
                         @Override
                         public void run() {
+
                             String[] column = new String[1];
                             column[0] = "title";
                             String[] title = new String[1];
                             title[0] = qrCodes.valueAt(0).displayValue;
                             cameraSource.stop();
                             PutData putData = new PutData("http://2e5a-2001-b400-e203-5338-990d-a2e7-d84-4935.ngrok.io/androidtest/searchproduct.php", "POST", column, title);
+
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
                                     String result = putData.getResult();

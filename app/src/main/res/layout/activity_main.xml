@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pexels_eberhard_grossgasteiger_1624438"
     tools:context=".MainActivity">
 
     <SurfaceView
@@ -24,9 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
-        android:background="@color/black"
-        android:textColor="@color/white"
+        android:background="#80FFFFFF"
         android:text="@string/back"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/surface_view" />
@@ -37,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="40dp"
-        android:background="@color/black"
+        android:background="#80FFFFFF"
         android:text="@string/shopping_cart"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
