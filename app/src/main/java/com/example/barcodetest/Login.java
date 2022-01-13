@@ -72,7 +72,7 @@ public class Login extends AppCompatActivity {
                                         finish();
                                     }
                                     else {
-                                        Toast.makeText(getApplicationContext(),"wrong password,enter again.",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
                                         Intent intent = getIntent();
                                         overridePendingTransition(0, 0);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

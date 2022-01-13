@@ -106,7 +106,7 @@ public class shoppingcart extends MainActivity{
                         }
                         data[3] = Integer.toString(total);
                         data[4] = token;
-                        PutData putData = new PutData("http://2e5a-2001-b400-e203-5338-990d-a2e7-d84-4935.ngrok.io/addrecord.php", "POST", field, data);
+                        PutData putData = new PutData("http://2e5a-2001-b400-e203-5338-990d-a2e7-d84-4935.ngrok.io/androidtest/addrecord.php", "POST", field, data);
                         if (putData.startPut()) {
                             if (putData.onComplete()) {
                                 String result = putData.getResult();
